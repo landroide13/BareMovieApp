@@ -4,7 +4,6 @@ import React from 'react'
 import { StackScreenProps } from '@react-navigation/stack';
 import Carousel from 'react-native-snap-carousel';
 
-import { MovieDBNow } from '../interfaces/movieInterface';
 import useMovies from '../hooks/useMovies'
 import MoviePoster from '../components/MoviePoster';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -19,7 +18,7 @@ const HomeScreen = ({ navigation }: Props) => {
   const { top } = useSafeAreaInsets();  
 
 
-  const { MoviesNow, isLoading } = useMovies();
+  const { nowPlaying, isLoading, popular, topRated, upComming } = useMovies();
 
   if(isLoading){
     return(
@@ -29,15 +28,13 @@ const HomeScreen = ({ navigation }: Props) => {
     )
   }
   
-
-
   return (
     <ScrollView>
         <View style={{ marginTop: top + 20 }}>
 
         <View style={{ height: 440 }}>
             <Carousel 
-                data={MoviesNow} 
+                data={ nowPlaying } 
                 renderItem={({ item }: any) => <MoviePoster movie={ item } /> }
                 sliderWidth={ width }
                 itemWidth={ 300 }
@@ -45,9 +42,11 @@ const HomeScreen = ({ navigation }: Props) => {
                 />
             </View>
 
-            <HorizontalSlider movies={ MoviesNow } title='Showing Now'/>
+            <HorizontalSlider movies={ popular } title='Popular Movies'/>
+            <HorizontalSlider movies={ topRated } title='Top Rated Movies'/>
+            <HorizontalSlider movies={ upComming } title='Up Comming Movies'/>
 
-        <Button title='To Details' onPress={() => navigation.navigate('Detail')} />
+        {/* <Button title='To Details' onPress={() => navigation.navigate('Detail')} /> */}
         </View>
     </ScrollView>
   )
