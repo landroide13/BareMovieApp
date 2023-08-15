@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Dimensions, ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, View, Image, Dimensions, ActivityIndicator, TouchableOpacity } from 'react-native'
 import React from 'react';
 import { StackScreenProps } from '@react-navigation/stack';
 
@@ -13,7 +13,7 @@ const screenHeight = Dimensions.get("screen").height;
 
 interface Props extends StackScreenProps<RootStackParams, 'Detail'>{}
 
-const DetailScreen = ({ route }: Props) => {
+const DetailScreen = ({ route, navigation }: Props) => {
 
   const movie = route.params;
 
@@ -43,8 +43,14 @@ const DetailScreen = ({ route }: Props) => {
           isLoading ? <ActivityIndicator size={ 30 } color="grey" style={{ marginTop: 20 }} />
                     : <MovieDetail movieFull={ movieFull! } cast={ cast }  />
         }
-        
       </View>
+
+      <TouchableOpacity style={ styles.backBtn } onPress={() => navigation.pop()} >
+        <Icon name='arrow-left' color='white' size={ 50 } />
+      </TouchableOpacity>
+      
+
+
     </ScrollView>
   )
 }
@@ -93,5 +99,13 @@ const styles = StyleSheet.create({
     borderBottomEndRadius:25,
     borderBottomStartRadius: 25,
     overflow: 'hidden',
+  },
+
+  backBtn:{
+    position: 'absolute',
+    zIndex: 100,
+    elevation: 9,
+    top: 30,
+    left: 5
   }
 })

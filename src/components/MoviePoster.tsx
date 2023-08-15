@@ -15,8 +15,6 @@ const MoviePoster = ({ movie, height = 420, width = 300 }: Props) => {
 
   const uri = `https://image.tmdb.org/t/p/w500${ movie.poster_path }`
 
-  console.log(movie.id)
-
   return (
     <TouchableOpacity 
         activeOpacity={0.8} 
